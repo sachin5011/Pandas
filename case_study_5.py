@@ -55,4 +55,28 @@ data['Reviews'] = data['Reviews'].astype('float')
 
 # ===== Find total number of free and paid apps
 # print(data.columns)
-print(data['Type'].value_counts())
+# print(data['Type'].value_counts())
+
+# ==== Which App has maximum reviews
+# print(data.columns)
+print(data[data['Reviews'] == data['Reviews'].max()]["App"])
+# print(data['Reviews'].dtype)
+
+# ==== Display top 5 apps having max reviews
+indx = data['Reviews'].sort_values(ascending=False).head().index
+# print(data.iloc[indx]['App'])
+
+# ==== Find average rating of free and paid apps
+# print(data.groupby("Type")["Rating"].mean())
+
+# ==== Display top 5 apps having multiple installs
+# print(data.columns)
+data['Installs1'] = data['Installs'].str.replace(",","")
+data['Installs_1'] = data['Installs1'].str.replace("+","")
+data['Installs_1'] = data['Installs_1'].str.replace("Free","0")
+data['Installs_1'] = data['Installs_1'].astype('int')
+# print(data['Installs'].sort_values(ascending=False).head())
+# print(data['Installs_1'].head())
+
+indexes = data["Installs_1"].sort_values(ascending=False).head().index
+print(data.iloc[indexes]['App'])
